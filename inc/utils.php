@@ -6,12 +6,12 @@
             }
         }
     
-    function getConnection() {
+    function getConn() {
     # Dados para conexão
     $host = "localhost";
     $username = "root";
     $passwd = "caelum";
-    $dbname = "fp_73";
+    $dbname = "fp73";
 
     #Abrindo uma conexão com o DB
     return mysqli_connect($host, $username, $passwd, $dbname);
@@ -24,7 +24,18 @@
     }
 
     function getProducts($conn) {
-      $query = "SELECT * FROM produtos";
+      $query = "SELECT 
+      p.id,
+      p.nome AS nome_produto,
+      p.preco,
+      p.quant,
+      c.nome AS nome_categoria
+      FROM
+          produtos AS p
+      INNER JOIN 
+          categorias AS c
+      ON
+          (p.id_categoria =c.id);";
       $result = mysqli_query($conn, $query);
       return $result;
     }
@@ -33,8 +44,8 @@
         return mysqli_fetch_assoc($result);
     }
 
-    function addProduct($conn, $nome, $preco, $quant){
-        $query = "INSERT INTO produtos (nome, preco, quant) VALUES ('{$nome}', {$preco}, '{$quant}')";
+    function addProduct($conn, $nome, $preco, $quant, $idcateg){
+        $query = "INSERT INTO produtos (nome, preco, quant, id_categoria) VALUES ('{$nome}', {$preco}, '{$quant}' , '{$idcateg}')";
         return mysqli_query($conn, $query);
     }
 
@@ -53,4 +64,10 @@
         }
         return false;
     }
+    function getCategories($conn){
+        $query = "SELECT * FROM categorias";
+        return mysqli_query($conn, $query);
+    }
+
+
 ?>

@@ -1,7 +1,7 @@
 <?php
   include("inc/utils.php");
   $page = "EDITAR";
-  $conn = getConnection();
+  $conn = getConn();
 
   if($conn && $_GET){
     $result = getProductById($conn, $_GET['id']);
@@ -33,7 +33,7 @@
     <div class="container">
         <?php include_once("inc/alerts.php");?>
         <form action="editar.php" method="POST">
-          <input type="text" name="id" value="<?=$prod['id']?>">
+          <input type="hiddem" name="id" value="<?=$prod['id']?>">
           <br>
 
             <div class="form-row">

@@ -1,7 +1,7 @@
 <?php
 include_once("inc/utils.php");
 var_dump($_POST);
-$conn = getConnection();
+$conn = getConn();
 
 if($conn && $_POST){
     $removed = removeProduct($conn, $_POST['id']);
